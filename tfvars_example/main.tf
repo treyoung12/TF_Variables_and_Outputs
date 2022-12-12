@@ -16,6 +16,12 @@ provider "aws" {
 #variable block
 variable "instance_type" {
   type = string
+  description = "The size of the instance"
+  sensitive = true #obscures the value after "Terraform plan"
+  validation {
+    condition = can(regex("^t3.",var.instance_type))
+    error_message = "The instance must be a t3 type instance."
+  }
 
 }
 
